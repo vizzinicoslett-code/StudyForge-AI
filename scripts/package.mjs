@@ -24,11 +24,13 @@ await cp(resolve(root,'frontend/dist'),resolve(output,'StudyForge-AI/frontend/di
 async function collect(dir){for(const entry of await readdir(dir,{withFileTypes:true})){const path=resolve(dir,entry.name);if(entry.isDirectory())await collect(path);else packagePaths.push(path);}}
 await collect(resolve(output,'StudyForge-AI/frontend/dist'));
 await cp(resolve(root,'docs/submission'),resolve(output,'课程作业材料'),{recursive:true});
-await cp(resolve(root,'screenshots'),resolve(output,'截图'),{recursive:true});
+const publicScreenshots=publicManifest.files.filter(file=>file.path.startsWith('screenshots/')&&file.path.endsWith('.png'));
+await mkdir(resolve(output,'截图'),{recursive:true});
+for(const file of publicScreenshots){const target=resolve(output,'截图',basename(file.path));await cp(resolve(root,file.path),target);packagePaths.push(target);}
 await cp(resolve(root,'docs/测试报告.md'),resolve(output,'课程作业材料/09-测试报告.md'));
 await cp(resolve(root,'docs/最终验收清单.md'),resolve(output,'课程作业材料/10-最终验收清单.md'));
-await writeFile(resolve(output,'README.md'),`# StudyForge AI 公开课程展示包\n\n课程：《人工智能入门指南》\n\n源码：https://github.com/vizzinicoslett-code/StudyForge-AI\n\n组号：[待填写]　成员：[待填写，公开副本不填私人信息]\n\n当前版本为 Mock / 本地规则处理，无需任何 API Key 或付费 AI 服务。\n\nStudyForge-AI/ 包含源码、锁文件、正式构建、自制 Demo、测试和部署配置；课程作业材料/ 包含九份课程文档、测试报告和验收清单；截图/ 包含十张自制 Demo 截图。\n\n进入 StudyForge-AI 首次执行 npm ci --include=dev，必要时 npm run build，然后 npm start，访问 http://127.0.0.1:3001。\n\n${api.tests} 项后台测试与 ${e2e.checks.length} 项 headless 检查通过；公网状态以在线部署说明为准，未取得实际 URL 前不声称部署完成。\n\n不包含原始私人课件、本机摘录、artifacts、node_modules、.env 或任何凭据。按脚本自行录屏，仅使用自制 Demo。\n`,'utf8');
-await collect(resolve(output,'课程作业材料'));await collect(resolve(output,'截图'));packagePaths.push(resolve(output,'README.md'));
+await writeFile(resolve(output,'README.md'),`# StudyForge AI 公开课程展示包\n\n课程：《人工智能入门指南》\n\n源码：https://github.com/vizzinicoslett-code/StudyForge-AI\n\n组号：[待填写]　成员：[待填写，公开副本不填私人信息]\n\n当前版本为 Mock / 本地规则处理，无需任何 API Key 或付费 AI 服务。\n\nStudyForge-AI/ 包含源码、锁文件、正式构建、自制 Demo、测试和部署配置；课程作业材料/ 包含九份课程文档、测试报告和验收清单；截图/ 包含九张获准公开的自制 Demo 截图。\n\n进入 StudyForge-AI 首次执行 npm ci --include=dev，必要时 npm run build，然后 npm start，访问 http://127.0.0.1:3001。\n\n${api.tests} 项后台测试与 ${e2e.checks.length} 项 headless 检查通过；公网状态以在线部署说明为准，未取得实际 URL 前不声称部署完成。\n\n不包含原始私人课件、本机摘录、artifacts、node_modules、.env 或任何凭据。按脚本自行录屏，仅使用自制 Demo。\n`,'utf8');
+await collect(resolve(output,'课程作业材料'));packagePaths.push(resolve(output,'README.md'));
 const files=[];
 for(const path of [...new Set(packagePaths)]){const buffer=await readFile(path);files.push({path:relative(output,path).replaceAll('\\','/'),bytes:buffer.length,sha256:createHash('sha256').update(buffer).digest('hex')});}
 await writeFile(resolve(output,'提交文件清单.json'),JSON.stringify({format:'StudyForge AI V1 submission',files},null,2));

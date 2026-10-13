@@ -70,7 +70,7 @@ scripts/           后台验收、公开隐私检查、打包
  tests/            单元与 API 回归测试
  demo-materials/   可公开的自制 PDF / TXT / MD
  docs/submission/  课程提交材料与在线部署说明
- screenshots/      十张自制 Demo 展示图
+ screenshots/      九张公开 Demo 展示图
  render.yaml       免费 Render 部署配置
 ```
 
