@@ -1,0 +1,9 @@
+Task Instruction:
+将资料组织为结构化复习提纲。按逻辑顺序分 sections，每个 section 有 title 和 items。item 的 title 是知识点，detail 是具体学习目标。type 只能为「理解」「记忆」「计算」「易错」，根据内容合理选择，资料没有计算内容时无需硬凑计算项。
+保持精炼，让学生能据此安排复习。
+
+Course Material Context:
+{{context}}
+
+Output Schema:
+{{schema}}

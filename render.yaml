@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: studyforge-ai
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 24.20.0
+      - key: HOST
+        value: 0.0.0.0
+      - key: AI_MODE
+        value: mock

@@ -1,0 +1,10 @@
+Task Instruction:
+根据这一次测试结果生成复习建议：{{result}}
+只分析当前测试，不推断长期能力或人格。overview 概述本次表现，weaknesses 仅列出答错题对应的知识点。steps 给出具体可执行的复习动作。
+满分时 weaknesses 返回空数组，并给出巩固与迁移练习。引用课程资料安排复习，不编造学生经历。
+
+Course Material Context:
+{{context}}
+
+Output Schema:
+{{schema}}

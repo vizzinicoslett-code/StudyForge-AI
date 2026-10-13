@@ -1,0 +1,11 @@
+Task Instruction:
+根据资料生成恰好 {{count}} 道测试题。仅使用 single 单项选择题和 boolean 判断题，建议两种题型都包含。
+single 提供 4 个选项（选项文字不加 A/B/C/D 前缀）；boolean 的 options 必须为 ["正确","错误"]。
+answer 为选项字母 A/B/C/D，判断题正确用 A，错误用 B。每题只有一个明确答案，题目与选项不得重复。
+explanation 说明答案为什么正确，knowledge 给出对应知识点名称。所有题目与正确答案必须可以从资料中验证；不要出资料外的题目。
+
+Course Material Context:
+{{context}}
+
+Output Schema:
+{{schema}}
