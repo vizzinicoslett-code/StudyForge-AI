@@ -1,10 +1,16 @@
 # StudyForge AI
 
-源码仓库：[vizzinicoslett-code/StudyForge-AI](https://github.com/vizzinicoslett-code/StudyForge-AI)
+**StudyForge AI V1 Final** · 已通过 Render 公网最终验收，产品功能正式冻结。
 
-在线体验：部署待完成，取得真实公网地址并验收后再填写。
+在线体验：[https://studyforge-ai-47aj.onrender.com](https://studyforge-ai-47aj.onrender.com)
+
+GitHub：[https://github.com/vizzinicoslett-code/StudyForge-AI](https://github.com/vizzinicoslett-code/StudyForge-AI)
 
 **把课程资料变成你的 AI 复习助手。**《人工智能入门指南》课程项目。当前公开课程展示版本默认使用 **Mock 演示模式 / 本地规则处理**，无需 OpenAI API Key、无需付费 AI 服务，也不使用本地大模型。
+
+老师直接打开在线网址即可体验，无需登录、下载源码或安装软件。
+
+本项目部署于 Render Free。服务长时间无人访问后可能进入休眠，首次打开可能需要等待约 1 分钟，服务唤醒后即可正常使用。
 
 ## 使用流程与功能
 
@@ -44,9 +50,11 @@ GitHub 托管源码；Render **Free Node Web Service** 同时提供前端静态�
 
 在 Render 用 GitHub 登录，New → Blueprint，选择本仓库，确认仅有一个 Free Web Service 后部署。如果账号界面不提供免费 Blueprint 流程，可使用 New → Web Service，选择同一仓库并填写上面的构建、启动、环境变量和健康检查配置。
 
-老师取得实际公网网址后，不需要登录、安装 Node 或下载源码。尚未取得 URL 时不能将部署准备写成部署成功。
+本服务已部署于 Render，实例类型 Free；实际公网地址见本文顶部。最终云端验收记录见 [云端最终验收报告](docs/云端最终验收报告.md)。
 
-Render 免费实例连续 15 分钟没有流量会休眠，下一次请求唤醒通常约需一分钟。免费额度也受实例时长、流量和构建分钟限制；不升级付费实例、不添加付费数据库或磁盘。不添加付款方式时，超额会暂停服务或构建。实际额度与规则以 [Render 免费说明](https://render.com/docs/free) 为准。
+本项目部署于 Render Free。服务长时间无人访问后可能进入休眠，首次打开可能需要等待约 1 分钟，服务唤醒后即可正常使用。
+
+免费额度受实例时长、流量和构建分钟限制；不升级付费实例、不添加付费数据库或磁盘。不添加付款方式时，超额会暂停服务或构建。实际额度与规则以 [Render 免费说明](https://render.com/docs/free) 为准。
 
 ## 资料与隐私
 
@@ -80,18 +88,19 @@ scripts/           后台验收、公开隐私检查、打包
 npm test
 npm run build
 npm run test:e2e
-node scripts/startup-smoke.mjs
 node scripts/deployment-smoke.mjs
 node scripts/privacy-check.mjs
 ```
 
 E2E 使用 Playwright headless，Windows 可使用现有 Edge / Chrome；Linux 测试环境先安装 Playwright Chromium。可通过 BROWSER_EXECUTABLE 指定浏览器。测试记录保存在被忽略的 artifacts/，公开概要见 docs/测试报告.md。
 
-公网部署取得 URL 后，运行 `node scripts/deployment-smoke.mjs --url https://实际域名` 检查网页、静态资源、页面刷新与完整 Mock 流程。脚本仅使用自制资料，不需要账号或 API Key。
+公网复核命令：`node scripts/deployment-smoke.mjs --url https://studyforge-ai-47aj.onrender.com`。脚本针对 Render 公网检查网页、静态资源、页面刷新与 Mock 流程，只使用自制资料，不需要账号或 API Key。详细最终验收另检查中文 PDF 与逐题解析。
 
 ## 常见问题
 
 扫描或加密 PDF：V1 不含 OCR，先转换为可读文本 PDF；损坏文件有错误提示。TXT / Markdown 使用 UTF-8。单文件 ≤10 MB、文本 ≤10 万字符。
+
+Mock 重点提炼面向中文课程正文。仓库的纯英文 PDF 用于验证上传和解析；它提炼重点时会提示有效正文不足，这是本地与云端一致的规则限制。完整学习演示请使用内置示例、中文 TXT/Markdown 或包含中文正文的可读 PDF。
 
 端口占用：停止旧服务或修改 PORT。修改开发后端端口时也调整 Vite 本地代理。云端不要把 HOST 设为 127.0.0.1；render.yaml 已设置 0.0.0.0。
 
